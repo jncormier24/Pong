@@ -1,3 +1,8 @@
+# @TODO:
+# scoring
+# can we have the ball project where it's going to go with physics?
+# networking?
+
 import turtle
 
 # build the window
@@ -98,6 +103,3 @@ while playinggame:
         # ball.setx(paddleB.xcor() - 10)
         # ball.sety(paddleB.ycor())
         ball.dx *= -1
-
-    # scoring
-    # can we have the ball project where it's going to go with physics?
