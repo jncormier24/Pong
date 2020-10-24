@@ -1,5 +1,4 @@
 # @TODO:
-# scoring
 # can we have the ball project where it's going to go with physics?
 # networking?
 
@@ -18,7 +17,7 @@ paddleA.speed(0) # speed of animation
 paddleA.shape("square")
 paddleA.color("black")
 paddleA.shapesize(stretch_wid=5, stretch_len=1)
-paddleA.penup() # draw a line
+paddleA.penup()
 paddleA.goto(-350, 0)
 
 # Paddle B
@@ -27,7 +26,7 @@ paddleB.speed(0) # speed of animation
 paddleB.shape("square")
 paddleB.color("black")
 paddleB.shapesize(stretch_wid=5, stretch_len=1)
-paddleB.penup() # draw a line
+paddleB.penup()
 paddleB.goto(350, 0)
 
 # Ball
@@ -39,6 +38,21 @@ ball.penup()
 ball.goto(0, 0)
 ball.dx = .15
 ball.dy = .15
+
+# Scoring
+playerAScore = 0
+playerBScore = 0
+score = turtle.Turtle()
+score.speed(0)
+score.color('black')
+score.penup()
+score.hideturtle()
+score.goto(0, 260)
+
+
+def writeScore(playerA, playerB):
+    score.clear()
+    score.write("Player A: {}  Player B: {}".format(playerAScore, playerBScore), align="center", font=("", 24, "normal"))
 
 # Movements
 def paddleAUp():
@@ -61,6 +75,7 @@ def paddleBDown():
     ycoord -= 20
     paddleB.sety(ycoord)
 
+
 # Controls
 window.listen()
 window.onkeypress(paddleAUp, "w")
@@ -69,18 +84,27 @@ window.onkeypress(paddleBUp, "Up")
 window.onkeypress(paddleBDown, "Down")
 
 # game loop
+writeScore(playerAScore, playerBScore)
 playinggame = True
 
 while playinggame:
     window.update()
 
     # Ball Movements
+    # Player B Scored
     if ball.xcor() < -390:
+        playerBScore += 1
         ball.goto(0, 0)
         ball.dx *= -1
+        writeScore(playerAScore, playerBScore)
+
+    # Player A Scored 
     elif ball.xcor() > 390:
+        playerAScore += 1
         ball.goto(0, 0)
         ball.dx *= -1
+        writeScore(playerAScore, playerBScore)
+
     else:
         ball.setx(ball.xcor() + ball.dx)
 
