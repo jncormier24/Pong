@@ -3,6 +3,8 @@
 # networking?
 
 import turtle
+from paddle import Paddle
+from ball import Ball
 
 # build the window
 window = turtle.Screen()
@@ -12,32 +14,16 @@ window.setup(width=800, height=600)
 window.tracer(0)  # stop the window from updating, helps with game speed
 
 # Paddle A
-paddleA = turtle.Turtle()
-paddleA.speed(0) # speed of animation
-paddleA.shape("square")
-paddleA.color("black")
-paddleA.shapesize(stretch_wid=5, stretch_len=1)
-paddleA.penup()
-paddleA.goto(-350, 0)
+paddleA = Paddle()
+paddleA.build(xpos=-350, ypos=0, name='Player A')
 
 # Paddle B
-paddleB = turtle.Turtle()
-paddleB.speed(0) # speed of animation
-paddleB.shape("square")
-paddleB.color("black")
-paddleB.shapesize(stretch_wid=5, stretch_len=1)
-paddleB.penup()
-paddleB.goto(350, 0)
+paddleB = Paddle()
+paddleB.build(350, 0, 'Player B')
 
 # Ball
-ball = turtle.Turtle()
-ball.speed(0) # speed of animation
-ball.shape("square")
-ball.color("black")
-ball.penup()
-ball.goto(0, 0)
-ball.dx = .15
-ball.dy = .15
+ball = Ball()
+ball.build(.15, .15)
 
 # Scoring
 playerAScore = 0
@@ -56,25 +42,16 @@ def writeScore(playerA, playerB):
 
 # Movements
 def paddleAUp():
-    ycoord = paddleA.ycor()
-    ycoord += 20
-    paddleA.sety(ycoord)
+    paddleA.moveUp(20)
 
 def paddleADown():
-    ycoord = paddleA.ycor()
-    ycoord -= 20
-    paddleA.sety(ycoord)
+    paddleA.moveDown(20)
 
 def paddleBUp():
-    ycoord = paddleB.ycor()
-    ycoord += 20
-    paddleB.sety(ycoord)
+    paddleB.moveUp(20)
 
 def paddleBDown():
-    ycoord = paddleB.ycor()
-    ycoord -= 20
-    paddleB.sety(ycoord)
-
+    paddleB.moveDown(20)
 
 # Controls
 window.listen()
